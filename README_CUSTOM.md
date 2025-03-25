@@ -31,35 +31,7 @@ Déployez l'ensemble du projet dans votre org Salesforce :
 sfdx force:source:deploy -p force-app -u votre-org
 ```
 
-## Cas d'utilisation dans les tests Apex
-
-Voici un exemple concret d'utilisation de DynamicDataFactory dans une classe de test Apex :
-
-```apex
-@TestSetup
-static void makeData() {
-    List<Object> listName = System.Test.loadData(SObjectTypeTestClasse__c.SObjectType, 'DynamicDataFactory');
-    DynamicDataFactory dataFactory = new DynamicDataFactory();
-    List<Account> oppyList = dataFactory.createSobjectsCascadeLookup('Opportunity');
-    System.Assert(oppyList.size() > 0, 'Oppy test data creation failed');
-    List<Account> accountList = [SELECT Id FROM Account];
-    System.Assert(accountList.size() > 0, 'Account test data creation failed');
-}
-
-@IsTest
-static void testObjectCreation() {
-    // Test code here
-}
-```
-
-Dans cet exemple :
-1. La méthode `makeData()` est annotée avec `@TestSetup` pour précharger les données avant les tests
-2. Les configurations sont chargées depuis une ressource statique via `System.Test.loadData()`
-3. Une instance de `DynamicDataFactory` est créée
-4. La méthode `createSobjectsCascadeLookup('Opportunity')` génère automatiquement des Opportunités avec leurs comptes associés
-5. Des assertions vérifient que les données ont bien été créées
-
-## Cas d'utilisation détaillé
+## Cas d'utilisation
 
 ### Créer un scénario de test complexe
 
@@ -127,61 +99,13 @@ insert new List<SObjectTypeTestClasse__c>{accountHeader, oppHeader, contactHeade
 
 #### 2. Définir les valeurs de données
 
-Créez ensuite les enregistrements "line" avec les valeurs de test :
-
-```apex
-// Données de compte
-SObjectTypeTestClasse__c accountLine = new SObjectTypeTestClasse__c(
-    Name = 'Client_Principal',
-    SObjectType__c = 'Account',
-    lineType__c = 'line',
-    LineOrder__c = 2,
-    Attribute1__c = 'ACME Corporation',
-    Attribute2__c = 'Technology',
-    Attribute3__c = 'Customer'
-);
-
-// Données d'opportunité
-SObjectTypeTestClasse__c opportunityLine = new SObjectTypeTestClasse__c(
-    Name = 'Opp_Principale',
-    SObjectType__c = 'Opportunity',
-    lineType__c = 'line',
-    LineOrder__c = 2,
-    Attribute1__c = 'Projet d\'expansion 2025',
-    Attribute2__c = 'Prospecting',
-    Attribute3__c = 'today:30', // Date de clôture dans 30 jours
-    Attribute4__c = 'Client_Principal' // Référence au compte
-);
-
-// Données de contact
-SObjectTypeTestClasse__c contactLine = new SObjectTypeTestClasse__c(
-    Name = 'Contact_Principal',
-    SObjectType__c = 'Contact',
-    lineType__c = 'line',
-    LineOrder__c = 2,
-    Attribute1__c = 'Jean',
-    Attribute2__c = 'Dupont',
-    Attribute3__c = 'jean.dupont@example.com',
-    Attribute4__c = 'Client_Principal' // Référence au compte
-);
-
-// Données de tâche
-SObjectTypeTestClasse__c taskLine = new SObjectTypeTestClasse__c(
-    Name = 'Task_Suivi',
-    SObjectType__c = 'Task',
-    lineType__c = 'line',
-    LineOrder__c = 2,
-    Attribute1__c = 'Appel de suivi',
-    Attribute2__c = 'Not Started',
-    Attribute3__c = 'Normal',
-    Attribute4__c = 'Contact_Principal' // Référence au contact
-);
-
-insert new List<SObjectTypeTestClasse__c>{accountLine, opportunityLine, contactLine, taskLine};
+Créer vos données dans une static resource comme dans l'exemple de la static ressource dans le projet
+ou executer directement  recursiveTestDataGenerator
 ```
 
 #### 3. Générer les données
-
+charger les données de la static resource
+ List<Object> listName = System.Test.loadData(SObjectTypeTestClasse__c.sObjectType, 'DynamicDataFactory');
 Utilisez le `DynamicDataFactory` pour générer les objets avec leurs relations :
 
 ```apex

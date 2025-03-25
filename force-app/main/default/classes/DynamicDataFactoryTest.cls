@@ -10,9 +10,12 @@ public with sharing class DynamicDataFactoryTest {
     @TestSetup
     static void makeData(){
         
-        TriggerHandler.bypass('AccountTriggerHandler');
         List<Object> listName = System.Test.loadData(SObjectTypeTestClasse__c.sObjectType, 'DynamicDataFactory');
-        TriggerHandler.ClearBypass('AccountTriggerHandler');
+        DynamicDataFactory dataFactory = new DynamicDataFactory();
+        List<Account> oppyList = dataFactory.createSobjectsCascadeLookup('Opportunity');    
+        System.Assert(oppyList.size() > 0, 'Oppy test data creation failed');
+        List<Account> accountList = [SELECT Id FROM Account];
+        System.Assert(accountList.size() > 0, 'Account test data creation failed');
     }
     @IsTest
     static void testObjectCreation(){
