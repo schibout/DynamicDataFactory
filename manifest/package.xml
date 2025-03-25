@@ -3,6 +3,8 @@
 	<types>
 		<members>BulkTestDataGenerator</members>
 		<members>BulkTestDataGeneratorTest</members>
+		<members>DataUtils</members>
+		<members>DataUtilsTest</members>
 		<members>DynamicDataFactory</members>
 		<members>DynamicDataFactoryTest</members>
 		<members>RecursiveTestDataGenerator</members>
