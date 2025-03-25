@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>SObjectType__c</columns>
+    <columns>Attribute1__c</columns>
+    <columns>Attribute2__c</columns>
+    <columns>Attribute3__c</columns>
+    <columns>Attribute4__c</columns>
+    <columns>Attribute5__c</columns>
+    <columns>Attribute6__c</columns>
+    <columns>Attribute7__c</columns>
+    <columns>Attribute8__c</columns>
+    <columns>Attribute9__c</columns>
+    <columns>Attribute10__c</columns>
+    <columns>Attribute11__c</columns>
+    <columns>Attribute12__c</columns>
+    <columns>Attribute13__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

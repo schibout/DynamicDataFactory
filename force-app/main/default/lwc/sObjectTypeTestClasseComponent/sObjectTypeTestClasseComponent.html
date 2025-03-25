@@ -1,0 +1,90 @@
+<!-- sObjectTypeTestClasseComponent.html -->
+<template>
+    <lightning-card title="SObject Type Test Classes" icon-name="standard:custom_object">
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-button 
+                        label="Refresh Data" 
+                        icon-name="utility:refresh" 
+                        onclick={handleRefresh}
+                        variant="brand"
+                        class="slds-m-right_small">
+                    </lightning-button>
+                    
+                    <lightning-button 
+                        label="Export to CSV" 
+                        icon-name="utility:download" 
+                        onclick={exportToCSV}
+                        variant="success">
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Loading spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-around_medium">
+                    <lightning-spinner alternative-text="Loading data..." variant="brand"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                        <lightning-icon icon-name="utility:error" alternative-text="Error" variant="inverse" size="x-small"></lightning-icon>
+                    </span>
+                    <h2>Error loading data: {error}</h2>
+                </div>
+            </template>
+
+            <!-- Data table -->
+            <template if:false={isLoading}>
+                <lightning-datatable
+                    data={records}
+                    columns={columns}
+                    key-field="Id"
+                    onrowselection={handleRowSelection}
+                    hide-checkbox-column="false"
+                    show-row-number-column="true"
+                    max-row-selection="1"
+                    sorted-by={sortBy}
+                    sorted-direction={sortDirection}
+                    onsort={handleSort}>
+                </lightning-datatable>
+            </template>
+
+            <!-- Attributes section for selected record -->
+            <template if:true={showAttributes}>
+                <div class="slds-m-top_large">
+                    <h2 class="slds-text-heading_medium slds-m-bottom_small">Attributes for {selectedRecord.Name}</h2>
+                    <lightning-datatable
+                        data={attributeData}
+                        columns={attributeColumns}
+                        key-field="id"
+                        hide-checkbox-column="true"
+                        resize-column-disabled="false">
+                    </lightning-datatable>
+                    
+                    <!-- Debug information -->
+                    <div class="slds-p-top_medium slds-p-bottom_medium">
+                        <div class="slds-text-heading_small slds-p-bottom_x-small">Selected Record Details:</div>
+                        <div class="slds-box slds-p-around_medium">
+                            <p><strong>Name:</strong> {selectedRecord.Name}</p>
+                            <p><strong>SObject Type:</strong> {selectedRecord.SObjectType__c}</p>
+                            <p><strong>Line Type:</strong> {selectedRecord.lineType__c}</p>
+                            <p><strong>Has Attributes:</strong> {hasAttributes}</p>
+                            <template if:true={hasDebugAttributes}>
+                                <p><strong>Sample Attributes:</strong></p>
+                                <p>Attribute1: {selectedRecord.Attribute1__c}</p>
+                                <p>Attribute2: {selectedRecord.Attribute2__c}</p>
+                                <p>Attribute3: {selectedRecord.Attribute3__c}</p>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

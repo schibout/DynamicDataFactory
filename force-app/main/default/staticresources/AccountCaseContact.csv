@@ -1,0 +1,9 @@
+Name,SObjectType__c,lineType__c,LineOrder__c,Attribute1__c,Attribute2__c,Attribute3__c,Attribute4__c,Attribute5__c,Attribute6__c,Attribute7__c,Attribute8__c,Attribute9__c,Attribute10__c,Attribute11__c,Attribute12__c,Attribute13__c,Attribute14__c,Attribute15__c,Attribute16__c
+Account_Header,Account,header,1,AccountNumber,AccountSource,BillingCity,BillingCountry,BillingPostalCode,BillingStreet,ExternalId__c,Name,PaymentConditions__c,SIREN__c,,,,,,
+Account_1,Account,line,2,FLEXSTONE,Pennylane,PARIS,FR,75007,5 RUE DE MONTTESSUY,c829a0db-edf2-40e7-9d14-526ecba3569d,FLEXSTONE PARTNERS SAS,30_days,494738750,,,,,,
+Opportunity_Header,Opportunity,header,1,AccountId,Amount,Budget_Confirmed__c,CloseDate,Discovery_Completed__c,ForecastCategoryName,LeadSource,Name,Probability,ROI_Analysis_Completed__c,StageName,Type,,,,
+Opportunity_1,Opportunity,line,2,Account_1,45000,false,31/10/2024,false,Pipeline,Website,Acme - 1250 Widgets (Sample),10,false,Qualification,Existing Business,,,,
+Contact_Header,Contact,header,1,AccountId,Email,FirstName,LastName,Salutation,,,,,,,,,,,
+Contact_1,Contact,line,2,Account_1,schibout@gmail.com.fr,Samir,CHIBOUT,Mr.,,,,,,,,,,,
+Case_1,Case,line,2,Account_1,Contact_1,[Action requise] Merci de remplir votre Compte ,false,Portail,Medium,Paiement et factures,New,[Action requise] Merci de remplir votre Compte,Problem,,,,,,
+Case_2,Case,line,3,Account_1,Contact_1,ContactId,false,Portail,High,New problem,New,ContactId,Problem,,,,,,
